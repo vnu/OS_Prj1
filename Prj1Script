@@ -1,0 +1,432 @@
+Script started on Mon 28 Feb 2011 12:43:42 AM EST
+
+/* The program executes as follows in an orderly manner*/
+
+fork {~/spr11/os/Prj1} > ls
+Compare.c       infile.txt   MoreShell.c     outfile.txt     Prj1Script
+dumpLib         inp.txt      MyCompress.c    ParFork.c
+DupShell.c      makefile     MyDecompress.c  ParThread.c
+ForkCompress.c  MiniShell.c  osheaders.h     PipeCompress.c
+
+/* Make is executed without any errors/
+
+fork {~/spr11/os/Prj1} > make
+g++ Compare.c -o Compare
+g++ MyCompress.c -o MyCompress
+g++ MyDecompress.c -o MyDecompress
+g++ ForkCompress.c -o ForkCompress
+g++ PipeCompress.c -o PipeCompress
+g++ ParFork.c -o ParFork
+g++ MiniShell.c -o MiniShell
+g++ MoreShell.c -o MoreShell
+g++ DupShell.c -o DupShell
+g++ ParThread.c -o ParThread -pthread
+
+/* MyCompress to compress*/
+
+fork {~/spr11/os/Prj1} > ./MyCompress infile.txt mycomp.txt
+
+You have given correct number of Arguments
+
+ InputFile	: infile.txt
+ OutputFile	: mycomp.txt
+
+**** File created successfully ****
+
+**** Program Successfully Compressed your file ****
+
+
+Running Time for MyCompress	: 0.607025 Seconds
+
+/* MyDecompress to Decompress*/
+
+fork {~/spr11/os/Prj1} >  ./MyDecompress outfile.txt mydecomp.txt
+
+You have given correct number of Arguments
+
+ Input File	: outfile.txt
+ Output File	: mydecomp.txt
+
+**** File created successfully ****
+
+**** Program Successfully Decompressed your file ****
+
+/*Compare function that compares both files*/
+
+fork {~/spr11/os/Prj1} >  ./Compare mycomp.txt outfile.txt 
+
+Number of Character in Input File	: 152184
+
+Number of Character in Output File	: 152184
+
+
+*****Success Your Input and Output files are similar*****
+
+/*Compare function that compares both files*/
+
+fork {~/spr11/os/Prj1} >  ./Compare mydecomp.txt infile.txt 
+
+Number of Character in Input File	: 391815
+
+Number of Character in Output File	: 391815
+
+
+*****Success Your Input and Output files are similar*****
+
+
+/* The same file that was compresses decompressed and again compressed */
+
+fork {~/spr11/os/Prj1} >  ./MyCompress mydecomp.txt mycomp2.txt
+
+You have given correct number of Arguments
+
+ InputFile	: mydecomp.txt
+ OutputFile	: mycomp2.txt
+
+**** File created successfully ****
+
+**** Program Successfully Compressed your file ****
+
+
+Running Time for MyCompress	: 0.588354 Seconds
+
+/*Compare function that compares both files*/
+
+fork {~/spr11/os/Prj1} > ./Compare mycomm.txt mycomp2.txt 
+
+Number of Character in Input File	: 152184
+
+Number of Character in Output File	: 152184
+
+
+*****Success Your Input and Output files are similar*****
+
+/* ForkCompress calls MyCompress to finish */
+fork {~/spr11/os/Prj1} >  ./ForkCompress infile.txt forkcomp.txt
+
+You have given correct number of Arguments
+
+ InputFile	: infile.txt
+ OutputFile	: forkcomp.txt
+
+**** File created successfully ****
+
+**** Program Successfully Compressed your file ****
+
+
+Running Time for MyCompress	: 0.539674 Seconds
+
+Fork executed successfully
+
+/*Compare function that compares both files*/
+fork {~/spr11/os/Prj1} >  ./Compare forkcomp.txt outfile.txt 
+
+Number of Character in Input File	: 152184
+
+Number of Character in Output File	: 152184
+
+
+*****Success Your Input and Output files are similar*****
+
+/*PipeCompress that compresses two files */
+
+fork {~/spr11/os/Prj1} >  ./PipeCompress infile.txt pipecomp.txt
+
+
+You have given correct number of Arguments
+
+ InputFile	: infile.txt
+ Output File	: pipecomp.txt
+
+**** File created successfully ****
+
+**** File Successfully Compressed ****
+Fork executed successfully
+
+/*Compare function that compares both files*/
+fork {~/spr11/os/Prj1} >  ./Compare pipecomp.txt outfile.txt 
+
+Number of Character in Input File	: 152184
+
+Number of Character in Output File	: 152184
+
+
+*****Success Your Input and Output files are similar*****
+
+/*ParFork that compresses the file */
+
+fork {~/spr11/os/Prj1} >  ./ParFork infile.txt pf.txt
+
+
+You have given correct number of Arguments
+
+ InputFile	: infile.txt
+ OutputFile	: pf.txt
+
+***** File created successfully *****
+
+Total Child Process Created	: 300
+
+**** Program Successfully Compressed your file ****
+
+
+Running Time for ParFork	: 0.636738 Seconds
+
+/*Compare function that compares both files*/
+
+fork {~/spr11/os/Prj1} >  ./Compare pf.txt outfile.txt 
+
+Number of Character in Input File	: 152184
+
+Number of Character in Output File	: 152184
+
+
+*****Failure. Your Input and Output Files are different*****
+
+fork {~/spr11/os/Prj1} >  The number of characters are same . Please note.
+
+/* Program for Minishell */
+
+fork {~/spr11/os/Prj1} > ./MiniShell
+
+MiniShell > ls
+Compare		forkcomp.txt  MoreShell.c     mydecomp.txt  pf.txt
+Compare.c	infile.txt    mycomp2.txt     osheaders.h   PipeCompress
+dumpLib		inp.txt       MyCompress      outfile.txt   PipeCompress.c
+DupShell	makefile      MyCompress.c    ParFork	    pipecomp.txt
+DupShell.c	MiniShell     mycomp.txt      ParFork.c     Prj1Script
+ForkCompress	MiniShell.c   MyDecompress    ParThread
+ForkCompress.c	MoreShell     MyDecompress.c  ParThread.c
+
+MiniShell > ps
+  PID TTY          TIME CMD
+15300 pts/1    00:00:00 bash
+15725 pts/1    00:00:00 MiniShell
+15727 pts/1    00:00:00 ps
+
+MiniShell > date
+Mon Feb 28 00:49:16 EST 2011
+
+MiniShell > exit
+fork {~/spr11/os/Prj1} >  ./MoreShell 
+
+/* Program for Moreshell */
+
+MoreShell > ls
+Compare		forkcomp.txt  MoreShell.c     mydecomp.txt  pf.txt
+Compare.c	infile.txt    mycomp2.txt     osheaders.h   PipeCompress
+dumpLib		inp.txt       MyCompress      outfile.txt   PipeCompress.c
+DupShell	makefile      MyCompress.c    ParFork	    pipecomp.txt
+DupShell.c	MiniShell     mycomp.txt      ParFork.c     Prj1Script
+ForkCompress	MiniShell.c   MyDecompress    ParThread
+ForkCompress.c	MoreShell     MyDecompress.c  ParThread.c
+
+MoreShell > ls -l
+total 1904
+-rwxr-xr-x 1 vc vc   8813 2011-02-28 00:43 Compare
+-rw------- 1 vc vc   1625 2011-02-27 22:23 Compare.c
+drwxr-xr-x 2 vc vc   4096 2011-02-28 00:38 dumpLib
+-rwxr-xr-x 1 vc vc  13480 2011-02-28 00:43 DupShell
+-rw------- 1 vc vc   3841 2011-02-27 21:44 DupShell.c
+-rwxr-xr-x 1 vc vc   8612 2011-02-28 00:43 ForkCompress
+-rw------- 1 vc vc   1758 2011-02-27 18:11 ForkCompress.c
+-rw-r--r-- 1 vc vc 152184 2011-02-28 00:46 forkcomp.txt
+-rw------- 1 vc vc 391815 2011-02-20 19:21 infile.txt
+-rw-r--r-- 1 vc vc     89 2011-02-26 21:04 inp.txt
+-rw------- 1 vc vc    949 2011-02-27 22:10 makefile
+-rwxr-xr-x 1 vc vc   9092 2011-02-28 00:43 MiniShell
+-rw------- 1 vc vc   2712 2011-02-27 21:01 MiniShell.c
+-rwxr-xr-x 1 vc vc   9092 2011-02-28 00:43 MoreShell
+-rw------- 1 vc vc   2181 2011-02-27 21:44 MoreShell.c
+-rw-r--r-- 1 vc vc 152184 2011-02-28 00:45 mycomp2.txt
+-rwxr-xr-x 1 vc vc  13610 2011-02-28 00:43 MyCompress
+-rw------- 1 vc vc   6373 2011-02-28 00:35 MyCompress.c
+-rw-r--r-- 1 vc vc 152184 2011-02-28 00:44 mycomp.txt
+-rwxr-xr-x 1 vc vc  13521 2011-02-28 00:43 MyDecompress
+-rw------- 1 vc vc   5439 2011-02-27 19:10 MyDecompress.c
+-rw-r--r-- 1 vc vc 391815 2011-02-28 00:44 mydecomp.txt
+-rw------- 1 vc vc    869 2011-02-28 00:21 osheaders.h
+-rw------- 1 vc vc 152184 2011-02-20 19:21 outfile.txt
+-rwxr-xr-x 1 vc vc  13940 2011-02-28 00:43 ParFork
+-rw------- 1 vc vc   6574 2011-02-28 00:34 ParFork.c
+-rwxr-xr-x 1 vc vc  14244 2011-02-28 00:43 ParThread
+-rw------- 1 vc vc   6883 2011-02-28 00:34 ParThread.c
+-rw-r--r-- 1 vc vc 152184 2011-02-28 00:48 pf.txt
+-rwxr-xr-x 1 vc vc  13715 2011-02-28 00:43 PipeCompress
+-rw------- 1 vc vc   7081 2011-02-27 19:10 PipeCompress.c
+-rw-r--r-- 1 vc vc 152184 2011-02-28 00:47 pipecomp.txt
+-rw-r--r-- 1 vc vc   4096 2011-02-28 00:47 Prj1Script
+
+MoreShell > ls -l -r
+total 1908
+-rw-r--r-- 1 vc vc   8192 2011-02-28 00:49 Prj1Script
+-rw-r--r-- 1 vc vc 152184 2011-02-28 00:47 pipecomp.txt
+-rw------- 1 vc vc   7081 2011-02-27 19:10 PipeCompress.c
+-rwxr-xr-x 1 vc vc  13715 2011-02-28 00:43 PipeCompress
+-rw-r--r-- 1 vc vc 152184 2011-02-28 00:48 pf.txt
+-rw------- 1 vc vc   6883 2011-02-28 00:34 ParThread.c
+-rwxr-xr-x 1 vc vc  14244 2011-02-28 00:43 ParThread
+-rw------- 1 vc vc   6574 2011-02-28 00:34 ParFork.c
+-rwxr-xr-x 1 vc vc  13940 2011-02-28 00:43 ParFork
+-rw------- 1 vc vc 152184 2011-02-20 19:21 outfile.txt
+-rw------- 1 vc vc    869 2011-02-28 00:21 osheaders.h
+-rw-r--r-- 1 vc vc 391815 2011-02-28 00:44 mydecomp.txt
+-rw------- 1 vc vc   5439 2011-02-27 19:10 MyDecompress.c
+-rwxr-xr-x 1 vc vc  13521 2011-02-28 00:43 MyDecompress
+-rw-r--r-- 1 vc vc 152184 2011-02-28 00:44 mycomp.txt
+-rw------- 1 vc vc   6373 2011-02-28 00:35 MyCompress.c
+-rwxr-xr-x 1 vc vc  13610 2011-02-28 00:43 MyCompress
+-rw-r--r-- 1 vc vc 152184 2011-02-28 00:45 mycomp2.txt
+-rw------- 1 vc vc   2181 2011-02-27 21:44 MoreShell.c
+-rwxr-xr-x 1 vc vc   9092 2011-02-28 00:43 MoreShell
+-rw------- 1 vc vc   2712 2011-02-27 21:01 MiniShell.c
+-rwxr-xr-x 1 vc vc   9092 2011-02-28 00:43 MiniShell
+-rw------- 1 vc vc    949 2011-02-27 22:10 makefile
+-rw-r--r-- 1 vc vc     89 2011-02-26 21:04 inp.txt
+-rw------- 1 vc vc 391815 2011-02-20 19:21 infile.txt
+-rw-r--r-- 1 vc vc 152184 2011-02-28 00:46 forkcomp.txt
+-rw------- 1 vc vc   1758 2011-02-27 18:11 ForkCompress.c
+-rwxr-xr-x 1 vc vc   8612 2011-02-28 00:43 ForkCompress
+-rw------- 1 vc vc   3841 2011-02-27 21:44 DupShell.c
+-rwxr-xr-x 1 vc vc  13480 2011-02-28 00:43 DupShell
+drwxr-xr-x 2 vc vc   4096 2011-02-28 00:38 dumpLib
+-rw------- 1 vc vc   1625 2011-02-27 22:23 Compare.c
+-rwxr-xr-x 1 vc vc   8813 2011-02-28 00:43 Compare
+
+MoreShell > exit
+fork {~/spr11/os/Prj1} > ./DupShell 
+
+/* Program for DupShell */
+
+DupShell > ls
+Compare		forkcomp.txt  MoreShell.c     mydecomp.txt  pf.txt
+Compare.c	infile.txt    mycomp2.txt     osheaders.h   PipeCompress
+dumpLib		inp.txt       MyCompress      outfile.txt   PipeCompress.c
+DupShell	makefile      MyCompress.c    ParFork	    pipecomp.txt
+DupShell.c	MiniShell     mycomp.txt      ParFork.c     Prj1Script
+ForkCompress	MiniShell.c   MyDecompress    ParThread
+ForkCompress.c	MoreShell     MyDecompress.c  ParThread.c
+
+DupShell > ls -l
+total 1908
+-rwxr-xr-x 1 vc vc   8813 2011-02-28 00:43 Compare
+-rw------- 1 vc vc   1625 2011-02-27 22:23 Compare.c
+drwxr-xr-x 2 vc vc   4096 2011-02-28 00:38 dumpLib
+-rwxr-xr-x 1 vc vc  13480 2011-02-28 00:43 DupShell
+-rw------- 1 vc vc   3841 2011-02-27 21:44 DupShell.c
+-rwxr-xr-x 1 vc vc   8612 2011-02-28 00:43 ForkCompress
+-rw------- 1 vc vc   1758 2011-02-27 18:11 ForkCompress.c
+-rw-r--r-- 1 vc vc 152184 2011-02-28 00:46 forkcomp.txt
+-rw------- 1 vc vc 391815 2011-02-20 19:21 infile.txt
+-rw-r--r-- 1 vc vc     89 2011-02-26 21:04 inp.txt
+-rw------- 1 vc vc    949 2011-02-27 22:10 makefile
+-rwxr-xr-x 1 vc vc   9092 2011-02-28 00:43 MiniShell
+-rw------- 1 vc vc   2712 2011-02-27 21:01 MiniShell.c
+-rwxr-xr-x 1 vc vc   9092 2011-02-28 00:43 MoreShell
+-rw------- 1 vc vc   2181 2011-02-27 21:44 MoreShell.c
+-rw-r--r-- 1 vc vc 152184 2011-02-28 00:45 mycomp2.txt
+-rwxr-xr-x 1 vc vc  13610 2011-02-28 00:43 MyCompress
+-rw------- 1 vc vc   6373 2011-02-28 00:35 MyCompress.c
+-rw-r--r-- 1 vc vc 152184 2011-02-28 00:44 mycomp.txt
+-rwxr-xr-x 1 vc vc  13521 2011-02-28 00:43 MyDecompress
+-rw------- 1 vc vc   5439 2011-02-27 19:10 MyDecompress.c
+-rw-r--r-- 1 vc vc 391815 2011-02-28 00:44 mydecomp.txt
+-rw------- 1 vc vc    869 2011-02-28 00:21 osheaders.h
+-rw------- 1 vc vc 152184 2011-02-20 19:21 outfile.txt
+-rwxr-xr-x 1 vc vc  13940 2011-02-28 00:43 ParFork
+-rw------- 1 vc vc   6574 2011-02-28 00:34 ParFork.c
+-rwxr-xr-x 1 vc vc  14244 2011-02-28 00:43 ParThread
+-rw------- 1 vc vc   6883 2011-02-28 00:34 ParThread.c
+-rw-r--r-- 1 vc vc 152184 2011-02-28 00:48 pf.txt
+-rwxr-xr-x 1 vc vc  13715 2011-02-28 00:43 PipeCompress
+-rw------- 1 vc vc   7081 2011-02-27 19:10 PipeCompress.c
+-rw-r--r-- 1 vc vc 152184 2011-02-28 00:47 pipecomp.txt
+-rw-r--r-- 1 vc vc   8192 2011-02-28 00:49 Prj1Script
+
+DupShell > ls | wc
+     33      33     370
+
+DupShell > ls -l | wc
+     34     266    1800
+
+DupShell > date | wc -c
+29
+
+DupShell > ls -l -s | wc -l
+34
+
+DupShell > ls -l -r | wc -c -l
+     34    1800
+
+DupShell > ls -l -s | wc
+     34     299    1932
+
+DupShell > exit
+
+/*ParThread Compresses the File */
+fork {~/spr11/os/Prj1} > ./ParThread infile.txt pt.txt
+
+You have given correct number of Arguments
+
+ Input File	:infile.txt
+ OutputFile	:pt.txt
+
+***** File created successfully *****
+
+**** Program Successfully Compressed your file ****
+
+
+Running Time for ParThread	: 0.637041 Seconds
+
+fork {~/spr11/os/Prj1} >  ./Compare pt.txt outfile.txt 
+
+Number of Character in Input File	: 152184
+
+Number of Character in Output File	: 152184
+
+
+*****Failure. Your Input and Output Files are different*****
+
+/*Error Handling for Empty File */
+
+fork {~/spr11/os/Prj1} >  ./MyCompress test.txt test1.txt
+
+You have given correct number of Arguments
+
+ InputFile	: test.txt
+ OutputFile	: test1.txt
+
+**** File created successfully ****
+
+*****The File is Empty. Nothing can be written*****
+
+**** Program Successfully Compressed your file ****
+
+
+Running Time for MyCompress	: 0.000376 Seconds
+
+/*Error Handling for Incorrect arguments */
+
+fork {~/spr11/os/Prj1} >  ./MyCompress 
+
+Hey argument must be 3!!
+The correct format is ./MyCompress <inputfilename> <outputfilename>
+fork {~/spr11/os/Prj1} >  ./MyDecompress 
+
+Hey argument must be 3!!
+The correct format is ./MyDecompress <inputfilename> <outputfilename>
+
+/*Error Handling for non existing file */
+fork {~/spr11/os/Prj1} >  ./MyDecompress abc.txt in.txt
+
+You have given correct number of Arguments
+
+ Input File	: abc.txt
+ Output File	: in.txt
+
+Cannot open file : abc.txt
+
+fork {~/spr11/os/Prj1} > exit
+exit
+
+Script done on Mon 28 Feb 2011 12:55:04 AM EST

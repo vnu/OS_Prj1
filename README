@@ -1,0 +1,89 @@
+/*
+* Author @Vnu
+*/
+
+
+
+Please Refer Project 1 specifications for details.
+
+
+
+The list of files
+_____________________________________________________________________________________________________________________________
+
+1) MyCompress.c     	:   DESCRIPTION	:	Program takes two arguments from the command line <Input File> <Output File>
+ * 			Opens the Input File and creates the Output File using System call 'open'
+ * 			Passes the File Descriptors for the input and the output file to the Compression Function
+ *
+ * EXECUTION		:	./MyCompress <Input File> <Output File>
+
+2) MyDecompress.c   	:   DESCRIPTION	:	Program takes two arguments from the command line <Input File> <Output File>
+ * 			Opens the Input File and creates the Output File using System call 'open'
+ * 			Passes the File Descriptors for the input and the output file to the Decompression Function
+ *
+ * EXECUTION		:	./MyDecompress <Input File> <Output File>
+
+3) ForkCompress.c   	:   DESCRIPTION	:	Program takes two arguments from the command line <Input File> <Output File>
+ * 			It forks a child process.
+ * 			Using execlp, it calls the MyCompress.c program to Compress the Input File and writes to Output File
+ *
+ * EXECUTION		:	./ForkCompress <Input File> <Output File>
+
+4)PipeCompress.c    	:   DESCRIPTION	:	Program takes two arguments from the command line <Input File> <Output File>
+ * 			It forks two child process and both child communicate through a pipe.
+ * 			The first child, reads from the input file, compresses it and writes to the pipe
+ * 			The second child reads from the pipe and writes to the output file.
+ *
+ * EXECUTION		:	./PipeCompress <Input File> <Output File>
+
+5)ParFork.c         	:   DESCRIPTION	:	Program takes two arguments from the command line <Input File> <Output File>
+ * 			It forks maximum of 30 child process each child process compress and writes a segment of the input file.
+ * 			If the Fork processes reaches 30, it waits for the children to complete and then forks again.
+ * 			The Segment is made for every newline character or white space.
+ *
+ * EXECUTION		:	./ParFork <Input File> <Output File>
+
+6)MiniShell.c   	:   DESCRIPTION	:	Program Forks a child to execute argument less commands like a UNIX Shell.
+ * 			It forks a child process.
+ * 			Using execlp, it executes the command array to run the given shell command
+ *
+ * EXECUTION		:	./MiniShell
+
+7)MoreShell.c      	 :  DESCRIPTION	:	Program Forks a child to execute commands with arguments like a UNIX Shell.
+ * 			It forks child processes for every input to the MoreShell>.
+ * 			Using execlp, it executes the command array to run the given shell command
+ *
+ * EXECUTION		:	./MoreShell
+
+8)DupShell.c        	:  DESCRIPTION	:	Program Forks a child to execute commands with arguments like a UNIX Shell.
+ * 			It forks child processes for every input to the MoreShell>.
+ * 			Using execlp, it executes the command array to run the given shell command
+ *
+ * EXECUTION		:	./DupShell
+
+9)ParThread.c       	:  DESCRIPTION	:	Program takes two arguments from the command line <Input File> <Output File>
+ * 			It creates threads that compresses and writes a segment of the input file to the output file.
+ * 			The Segment is made for every newline character or white space.
+ *
+ * EXECUTION		:	./ParThread <Input File> <Output File>
+
+10) osheaders.h  	: It contains all the #include files needed for programs
+ 
+11) makefile        	: It generates all the executables
+
+12) Prj1SCRIPT      	: Sample output of all programs
+
+13) Prj1README      	: List of files
+
+
+
+PROBLEM #10
+
+The execution time for 
+1. Sequential version                  : 0.539674 secs
+2. Fork version (max 30 concurrent)    : 0.636738 secs
+3. Thread version (max 100 concurrent) : 0.627041 secs
+From these timings we see that sequential version of compressing is the fastest followed by thread version and then forked version.
+Forked version is the slowest. And the thread version will be the fastest for larger file. This is because, fork creates a seperate
+address space. Thread uses a shared address space.
+
